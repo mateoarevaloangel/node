@@ -29,7 +29,7 @@ request.post(authOptions, function(error, response, body) {
     }
     token = body.access_token
     console.log(token)
-    res.json({token:token})
+    
   });
 /*
 var authOptions = {
@@ -55,12 +55,13 @@ var spotify = new Spotify({
     secret : '9d9a066e93214729aba53c5bc0217d69' 
   });
    
-  spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
+  spotify.search({ type: 'album', query: 'All the Small Things' }, function(err, data) {
     if (err) {
       return console.log('Error occurred: ' + err);
     }
    
   console.log(data); 
+  res.json(data)
   });
   
 })
