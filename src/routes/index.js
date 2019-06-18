@@ -3,6 +3,8 @@ const router = express.Router();
 const path = require('path');
 var request = require('request'); // "Request" library
 var token="";
+var Spotify = require('node-spotify-api');
+
 router.post('/busqueda',async(req,res)=>{
 
 var client_id = '6ce286bac2d5477589dbf405a021ecfa'; // Your client id
@@ -27,27 +29,40 @@ request.post(authOptions, function(error, response, body) {
     }
     token = body.access_token
     console.log(token)
+    res.json({token:token})
   });
-
+/*
 var authOptions = {
   url: 'https://api.spotify.com/v1/search?q=tania*&type=artist',
   headers: {
-    'Authorization': 'Bearer' + (new Buffer(token).toString('base64'))
+    'Authorization': token
   },
   form: {
     grant_type: 'client_credentials'
   },
   json: true
 };
-  Request.get("",Authorization=token, (error, response, body) => {
+Request.get(authOptions, (error, response, body) => {
     if(error) {
-        
+        console.log(error)
     }
     console.log(JSON.parse(body));
     console.log("aquiiii");
 });
-
-  res.json({token:token})
+*/
+var spotify = new Spotify({
+    id : '6ce286bac2d5477589dbf405a021ecfa', 
+    secret : '9d9a066e93214729aba53c5bc0217d69' 
+  });
+   
+  spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
+    if (err) {
+      return console.log('Error occurred: ' + err);
+    }
+   
+  console.log(data); 
+  });
+  
 })
 
 module.exports=router;
