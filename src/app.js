@@ -1,25 +1,26 @@
-var request = require('request'); // "Request" library
+const express =require('express');
+const app = express();
+var bodyparse=require('body-parser');
+const mongoose = require('mongoose');
+var cors= require('cors');
 
-var client_id = '6ce286bac2d5477589dbf405a021ecfa'; // Your client id
-var client_secret = '9d9a066e93214729aba53c5bc0217d69'; // Your secret
+mongoose.connect('mongodb+srv://MongoDBuser:Carajo14@cluster0-xsr5f.mongodb.net/test?retryWrites=true')
+.then(db=>console.log('db connected'))
+.catch(err=>console.log(err));
+
+app.set('port', process.env.PORT ||3200);
+
+app.use(express.json());
+app.use(cors());
+app.use(express.urlencoded({extended:false}));
 
 
-var authOptions = {
-  url: 'https://accounts.spotify.com/api/token',
-  headers: {
-    'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
-  },
-  form: {
-    grant_type: 'client_credentials'
-  },
-  json: true
-};
+app.use(require('../src/routes/index.js'));
 
-request.post(authOptions, function(error, response, body) {
-    if (!error && response.statusCode === 200) {
-  
-    console.log(body)
-    }
-  });
+app.listen(app.get('port'),()=>{
+console.log('server corren en el puerto'+app.get('port'));
+//console.log(`server corren en el puerto${app.get('port')}`);
+});
+
 
     
