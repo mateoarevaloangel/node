@@ -92,11 +92,11 @@ const albumSchema = new Shema({
                 uri: String
             }
         ],
-        "limit": 20,
-        "next": null,
-        "offset": 0,
-        "previous": null,
-        "total": 2
+        limit: Number,
+        next: String,
+        offset: Number,
+        previous: String,
+        total: Number
     }
 );
 

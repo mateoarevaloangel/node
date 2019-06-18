@@ -45,7 +45,10 @@ var spotify = new Spotify({
     }
     Album.create(data).then(albums=>{
         
-    }).catch(err=>{
+    }).then(response=>{
+        console.log("album guardado")
+    })
+    .catch(err=>{
   
         console.log(err);
     })
