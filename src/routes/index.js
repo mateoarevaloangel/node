@@ -4,6 +4,7 @@ const path = require('path');
 var request = require('request'); // "Request" library
 var token="";
 var Spotify = require('node-spotify-api');
+const Album = require('../models/album');
 var album='';
 
 router.post('/busqueda',async(req,res)=>{
@@ -42,8 +43,12 @@ var spotify = new Spotify({
     if (err) {
       return console.log('Error occurred: ' + err);
     }
-
-  console.log(data); 
+    Album.create(data).then(albums=>{
+        
+    }).catch(err=>{
+  
+        console.log(err);
+    })
   res.json(data)
   });
   
